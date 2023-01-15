@@ -12,14 +12,11 @@ Book.prototype.addToLibrary = function () {
   library.push(this);
 };
 
-function addBookToLibrary(book) {
-  library.push(book);
-}
-
 function drawLibrary() {
-  // Create a card for each book & add it to the library
+  // Clear the library display & draw every book
   const librarySection = document.querySelector('.library');
-  for (let i = 0; i < 4; i += 1) {
+  librarySection.innerHTML = '';
+  for (let i = 0; i < library.length; i += 1) {
     const newBook = document.createElement('div');
 
     const newTitle = document.createElement('p');
@@ -57,6 +54,24 @@ function drawLibrary() {
   }
 }
 
+function createNewBook() {
+  const newTitle = document.querySelector('#title');
+  const newAuthor = document.querySelector('#author');
+  const newPages = document.querySelector('#pages');
+  const newFinished = document.querySelector('#finished');
+  const submit = document.querySelector('#submit');
+  submit.addEventListener('click', () => {
+    const newBook = new Book(
+      newTitle.value,
+      newAuthor.value,
+      newPages.value,
+      newFinished.checked,
+    );
+    newBook.addToLibrary();
+    drawLibrary();
+  });
+}
+
 // Some default books to get the ball rollin'
 const bookOne = new Book('The Book of the New Sun', 'Gene Wolfe', 950, true);
 const bookTwo = new Book('Human Action', 'Ludwig von Mises', 881, false);
@@ -69,3 +84,4 @@ bookThree.addToLibrary();
 bookFour.addToLibrary();
 
 drawLibrary();
+createNewBook();

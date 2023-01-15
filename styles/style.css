@@ -13,12 +13,10 @@ body {
 }
 
 .book {
-  justify-content: center;
   background: #fff;
   border-radius: 20px;
   display: grid;
   gap: 12px;
-  max-width: 300px;
   padding: 16px
 }
 
@@ -38,6 +36,7 @@ body {
   background: #ddd;
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
+  overflow: auto;
   padding: 8px;
 }
