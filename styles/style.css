@@ -62,11 +62,14 @@ label[for="finished"] {
 
 .add-form input {
   font-size: 1rem;
-  padding: 4px;
 }
 
 .add-form input[placeholder] {
-  width: 300px;
+  border: 2px solid #444;
+  border-radius: 10px;
+  max-width: 90%;
+  padding: 8px;
+  width: 350px;
 }
 
 .add-form #submit {
@@ -96,7 +99,12 @@ label[for="finished"] {
 }
 
 .book button:active {
+  outline: 2px solid #444;
   scale: 95%;
+}
+
+.book button:focus {
+  outline: 2px solid #444;
 }
 
 .book button:hover {
@@ -229,7 +237,8 @@ label[for="finished"] {
   font-size: 1.1rem;
 }
 
-.popup input:focus {
+.popup input:focus,
+.add-form input:focus {
   background: #5ff;
   outline: 2px solid #444;
 }
@@ -259,8 +268,13 @@ label[for="finished"] {
   font-size: 1rem;
   font-weight: bold;
   justify-content: center;
+  max-width: 90%;
   padding: 8px 12px 8px 12px;
-  width: 300px;
+  width: 350px;
+}
+
+#submit:focus {
+  outline: 2px solid #444;
 }
 
 #submit:active {
