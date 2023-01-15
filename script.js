@@ -7,16 +7,65 @@ function Book(title, author, pages, finished) {
   this.finished = finished;
 }
 
+// Can't use arrow function because of "this"
+Book.prototype.addToLibrary = function () {
+  library.push(this);
+};
+
 function addBookToLibrary(book) {
   library.push(book);
 }
 
+function drawLibrary() {
+  // Create a card for each book & add it to the library
+  const librarySection = document.querySelector('.library');
+  for (let i = 0; i < 4; i += 1) {
+    const newBook = document.createElement('div');
+
+    const newTitle = document.createElement('p');
+    newTitle.textContent = library[i].title;
+    newBook.appendChild(newTitle);
+
+    const newAuthor = document.createElement('p');
+    newAuthor.textContent = `by ${library[i].author}`;
+    newBook.appendChild(newAuthor);
+
+    const newPages = document.createElement('p');
+    newPages.textContent = `${library[i].pages} pages`;
+    const newFinished = document.createElement('span');
+    if (library[i].finished) {
+      newFinished.textContent = 'Finished';
+    } else {
+      newFinished.textContent = 'Not finished';
+    }
+    newBook.appendChild(newPages);
+    newBook.appendChild(newFinished);
+
+    const newOptions = document.createElement('div');
+    const editButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
+    editButton.setAttribute('type', 'button');
+    editButton.textContent = 'EDIT';
+    deleteButton.setAttribute('type', 'button');
+    deleteButton.textContent = 'DELETE';
+    newOptions.appendChild(editButton);
+    newOptions.appendChild(deleteButton);
+    newBook.appendChild(newOptions);
+
+    newBook.classList.add('book');
+    librarySection.appendChild(newBook);
+  }
+}
+
+// Some default books to get the ball rollin'
 const bookOne = new Book('The Book of the New Sun', 'Gene Wolfe', 950, true);
 const bookTwo = new Book('Human Action', 'Ludwig von Mises', 881, false);
 const bookThree = new Book('Anatomy of the State', 'Murray Rothbard', 62, true);
 const bookFour = new Book('Marooned in Realtime', 'Vernor Vinge', 270, true);
 
-addBookToLibrary(bookOne);
-addBookToLibrary(bookTwo);
-addBookToLibrary(bookThree);
-addBookToLibrary(bookFour);
+bookOne.addToLibrary();
+bookTwo.addToLibrary();
+bookThree.addToLibrary();
+bookFour.addToLibrary();
+
+drawLibrary();
