@@ -9,7 +9,7 @@ function Book(title, author, pages, finished) {
 
 // Can't use arrow function because of "this"
 Book.prototype.addToLibrary = function () {
-  library.push(this);
+  library.splice(0, 0, this);
 };
 
 function handleDelete(e) {
