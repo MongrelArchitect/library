@@ -12,12 +12,19 @@ Book.prototype.addToLibrary = function () {
   library.push(this);
 };
 
+function handleDelete(e) {
+  library.splice(e.target.dataset.index, 1);
+}
+
 function drawLibrary() {
   // Clear the library display & draw every book
   const librarySection = document.querySelector('.library');
   librarySection.innerHTML = '';
   for (let i = 0; i < library.length; i += 1) {
     const newBook = document.createElement('div');
+    newBook.classList.add('book');
+    // Keep track of index for editing / deleting books
+    newBook.dataset.index = i;
 
     const newTitle = document.createElement('p');
     newTitle.textContent = library[i].title;
@@ -43,13 +50,18 @@ function drawLibrary() {
     const deleteButton = document.createElement('button');
     editButton.setAttribute('type', 'button');
     editButton.textContent = 'EDIT';
+    // Keep track for deleting book
+    deleteButton.dataset.index = i;
+    deleteButton.addEventListener('click', (e) => {
+      handleDelete(e);
+      drawLibrary();
+    });
     deleteButton.setAttribute('type', 'button');
     deleteButton.textContent = 'DELETE';
     newOptions.appendChild(editButton);
     newOptions.appendChild(deleteButton);
     newBook.appendChild(newOptions);
 
-    newBook.classList.add('book');
     librarySection.appendChild(newBook);
   }
 }

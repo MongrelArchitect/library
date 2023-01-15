@@ -36,7 +36,7 @@ body {
   background: #ddd;
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   overflow: auto;
   padding: 8px;
 }
