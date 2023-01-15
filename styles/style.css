@@ -2,11 +2,12 @@
 
 * {
   box-sizing: border-box;
+  letter-spacing: 0.08rem;
 }
 
 body {
   background: #999;
-  font-family: Roboto, serif;
+  font-family: Roboto, Helvetica, sans-serif;
   height: 100vh;
   width; 100vw;
 }
@@ -143,7 +144,7 @@ label[for="finished"] {
   border-left: 1px solid #111;
   border-right: 1px solid #111;
   display: grid;
-  grid-template: 2fr 8fr 1fr / 1fr;
+  grid-template: 2fr 8fr auto / 1fr;
   height: 100%;
   margin: auto;
   max-width: 1200px;
@@ -155,8 +156,20 @@ label[for="finished"] {
 }
 
 .footer {
+  align-items: center;
   background: #faa;
   box-shadow: 0 -2px 4px #888;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 8px;
+}
+
+.footer a {
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .grayout {
