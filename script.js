@@ -31,7 +31,6 @@ function submitEdit(e) {
   } else {
     library[currentIndex].finished = false;
   }
-  console.log(library);
 }
 
 function drawEditFinished(currentBook) {
@@ -171,7 +170,8 @@ function createNewBook() {
   const newPages = document.querySelector('#pages');
   const newFinished = document.querySelector('#finished');
   const submit = document.querySelector('#submit');
-  submit.addEventListener('click', () => {
+  submit.addEventListener('click', (event) => {
+    event.preventDefault();
     const newBook = new Book(
       newTitle.value,
       newAuthor.value,

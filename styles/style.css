@@ -5,14 +5,75 @@
 }
 
 body {
-  background: #aaa;
+  background: #999;
   font-family: Roboto, serif;
   height: 100vh;
   width; 100vw;
 }
 
+label[for="finished"] {
+  font-size: 1.1rem;
+}
+
 .add-book {
-  background: #5ff;
+  align-items: start;
+  box-shadow: 0 2px 4px #888;
+  background: #eef;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
+  padding: 12px;
+}
+
+.add-book h1 {
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.add-details {
+  display: flex;
+  grid-area: 3 / 1 / 4 / 3;
+}
+
+.add-details > div {
+  width: 300px;
+}
+
+.add-form {
+  display: grid;
+  gap: 8px;
+  grid-template: repeat(4, auto) / repeat(2, 1fr);
+}
+
+.add-form > * {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.add-form h2 {
+  font-size: 1.2rem;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+.add-form input {
+  font-size: 1rem;
+  padding: 4px;
+}
+
+.add-form input[placeholder] {
+  width: 300px;
+}
+
+.add-form #submit {
+  grid-area: 4 / 1 / 5 / 3;
+}
+
+.add-info {
+  grid-area: 2 / 1 / 3 / 3;
 }
 
 .book {
@@ -70,23 +131,6 @@ body {
   font-weight: bold;
 }
 
-.container {
-  display: grid;
-  grid-template: 2fr 8fr 1fr / 1fr;
-  height: 100%;
-  margin: auto;
-  max-width: 1200px;
-  width: 100%;
-}
-
-#edit-finished {
-  width: 100%;
-}
-
-.finished {
-  border-top: 10px solid #5f5;
-}
-
 .button-finished {
   background: #5f5;
 }
@@ -95,8 +139,24 @@ body {
   background: #ff0;
 }
 
+.container {
+  border-left: 1px solid #111;
+  border-right: 1px solid #111;
+  display: grid;
+  grid-template: 2fr 8fr 1fr / 1fr;
+  height: 100%;
+  margin: auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.finished {
+  border-top: 10px solid #5f5;
+}
+
 .footer {
-  background: #f55;
+  background: #faa;
+  box-shadow: 0 -2px 4px #888;
 }
 
 .grayout {
@@ -107,16 +167,17 @@ body {
   height: 100vh;
   width: 100vw;
   background: rgba(16, 0, 16, 0.8);
+  z-index: 9;
 }
 
 .library {
   align-content: start;
-  background: #aaa;
+  background: #ccc;
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   overflow: auto;
-  padding: 8px;
+  padding: 16px 8px 16px 8px;
 }
 
 .options {
@@ -164,6 +225,31 @@ body {
   background: #f55;
 }
 
+#edit-finished {
+  width: 100%;
+}
+
 #edit-submit {
   background: #5ff;
+}
+
+#finished {
+  margin-left: 16px;
+  scale: 1.5;
+}
+
+#submit {
+  background: #5ff;
+  border-radius: 10px;
+  border: 1px solid #111;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  justify-content: center;
+  padding: 8px 12px 8px 12px;
+  width: 300px;
+}
+
+#submit:active {
+  scale: 0.98;
 }
