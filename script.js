@@ -26,11 +26,39 @@ function submitEdit(e) {
   const editPages = popup.querySelector('#edit-pages');
   library[currentIndex].pages = editPages.value;
   const editFinished = popup.querySelector('#edit-finished');
-  if (editFinished.checked) {
+  if (editFinished.dataset.finished === 'true') {
     library[currentIndex].finished = true;
   } else {
     library[currentIndex].finished = false;
   }
+  console.log(library);
+}
+
+function drawEditFinished(currentBook) {
+  const editContainer = document.querySelector('#edit-finished-container');
+  editContainer.innerHTML = '';
+  const editFinished = document.createElement('button');
+  editFinished.setAttribute('id', 'edit-finished');
+
+  if (currentBook.finished) {
+    editFinished.textContent = 'FINISHED';
+    editFinished.dataset.finished = true;
+  } else {
+    editFinished.textContent = 'NOT FINISHED';
+    editFinished.dataset.finished = false;
+  }
+
+  editContainer.appendChild(editFinished);
+
+  editFinished.addEventListener('click', () => {
+    if (editFinished.dataset.finished === 'true') {
+      editFinished.textContent = 'NOT FINISHED';
+      editFinished.dataset.finished = false;
+    } else {
+      editFinished.textContent = 'FINISHED';
+      editFinished.dataset.finished = true;
+    }
+  });
 }
 
 function handleEdit(e) {
@@ -41,15 +69,11 @@ function handleEdit(e) {
   const editTitle = document.querySelector('#edit-title');
   const editAuthor = document.querySelector('#edit-author');
   const editPages = document.querySelector('#edit-pages');
-  const editFinished = document.querySelector('#edit-finished');
 
   const currentBook = library[e.target.dataset.index];
 
-  if (currentBook.finished) {
-    editFinished.setAttribute('checked', true);
-  } else {
-    editFinished.removeAttribute('checked');
-  }
+  drawEditFinished(currentBook);
+
   editTitle.value = currentBook.title;
   editAuthor.value = currentBook.author;
   editPages.value = currentBook.pages;
@@ -57,11 +81,8 @@ function handleEdit(e) {
   const submit = document.querySelector('#edit-submit');
   // Keep track of index for submiting edits
   submit.dataset.index = e.target.dataset.index;
-  submit.addEventListener('click', (event) => {
-    submitEdit(event);
-    // XXX Relying on hoisting here...
-    drawLibrary();
-  });
+  submit.addEventListener('click', submitEdit);
+  submit.addEventListener('click', drawLibrary);
 }
 
 function drawLibrary() {
@@ -157,7 +178,6 @@ function clearPopup() {
   const grayout = document.querySelector('.grayout');
   const submit = document.querySelector('#edit-submit');
   submit.addEventListener('click', () => {
-    submit.removeEventListener('click', submitEdit);
     grayout.setAttribute('style', 'display:none;');
   });
 }
