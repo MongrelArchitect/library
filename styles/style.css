@@ -31,6 +31,17 @@ body {
   background: #f55;
 }
 
+.grayout {
+  align-items: center;
+  justify-content: center;
+  /* display: flex; */
+  position: fixed;
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(16, 0, 16, 0.8);
+}
+
 .library {
   align-content: start;
   background: #ddd;
@@ -39,4 +50,12 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   overflow: auto;
   padding: 8px;
+}
+
+.popup {
+  background: #ffe;
+  border-radius: 18px;
+  height: 300px;
+  margin-bottom: 300px;
+  width: 300px;
 }

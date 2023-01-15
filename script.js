@@ -16,6 +16,54 @@ function handleDelete(e) {
   library.splice(e.target.dataset.index, 1);
 }
 
+function submitEdit(e) {
+  const currentIndex = e.target.dataset.index;
+  const popup = e.target.parentNode;
+  const editTitle = popup.querySelector('#edit-title');
+  library[currentIndex].title = editTitle.value;
+  const editAuthor = popup.querySelector('#edit-author');
+  library[currentIndex].author = editAuthor.value;
+  const editPages = popup.querySelector('#edit-pages');
+  library[currentIndex].pages = editPages.value;
+  const editFinished = popup.querySelector('#edit-finished');
+  if (editFinished.checked) {
+    library[currentIndex].finished = true;
+  } else {
+    library[currentIndex].finished = false;
+  }
+}
+
+function handleEdit(e) {
+  // Show the popup & fill the inputs with current book info
+  const grayout = document.querySelector('.grayout');
+  grayout.setAttribute('style', 'display:flex;');
+
+  const editTitle = document.querySelector('#edit-title');
+  const editAuthor = document.querySelector('#edit-author');
+  const editPages = document.querySelector('#edit-pages');
+  const editFinished = document.querySelector('#edit-finished');
+
+  const currentBook = library[e.target.dataset.index];
+
+  if (currentBook.finished) {
+    editFinished.setAttribute('checked', true);
+  } else {
+    editFinished.removeAttribute('checked');
+  }
+  editTitle.value = currentBook.title;
+  editAuthor.value = currentBook.author;
+  editPages.value = currentBook.pages;
+
+  const submit = document.querySelector('#edit-submit');
+  // Keep track of index for submiting edits
+  submit.dataset.index = e.target.dataset.index;
+  submit.addEventListener('click', (event) => {
+    submitEdit(event);
+    // XXX Relying on hoisting here...
+    drawLibrary();
+  });
+}
+
 function drawLibrary() {
   // Clear the library display & draw every book
   const librarySection = document.querySelector('.library');
@@ -48,6 +96,10 @@ function drawLibrary() {
     const newOptions = document.createElement('div');
     const editButton = document.createElement('button');
     const deleteButton = document.createElement('button');
+    editButton.dataset.index = i;
+    editButton.addEventListener('click', (e) => {
+      handleEdit(e);
+    });
     editButton.setAttribute('type', 'button');
     editButton.textContent = 'EDIT';
     // Keep track for deleting book
@@ -58,12 +110,29 @@ function drawLibrary() {
     });
     deleteButton.setAttribute('type', 'button');
     deleteButton.textContent = 'DELETE';
+
     newOptions.appendChild(editButton);
     newOptions.appendChild(deleteButton);
     newBook.appendChild(newOptions);
 
     librarySection.appendChild(newBook);
   }
+}
+
+function handleCancel() {
+  const grayout = document.querySelector('.grayout');
+  const editSubmit = document.querySelector('#edit-submit');
+  grayout.setAttribute('style', 'display:none;');
+  editSubmit.removeEventListener('click', submitEdit);
+}
+
+// Cancel editing
+function cancelEdit() {
+  const cancel = document.querySelector('#edit-cancel');
+  cancel.addEventListener('click', () => {
+    handleCancel();
+    drawLibrary();
+  });
 }
 
 function createNewBook() {
@@ -84,6 +153,15 @@ function createNewBook() {
   });
 }
 
+function clearPopup() {
+  const grayout = document.querySelector('.grayout');
+  const submit = document.querySelector('#edit-submit');
+  submit.addEventListener('click', () => {
+    submit.removeEventListener('click', submitEdit);
+    grayout.setAttribute('style', 'display:none;');
+  });
+}
+
 // Some default books to get the ball rollin'
 const bookOne = new Book('The Book of the New Sun', 'Gene Wolfe', 950, true);
 const bookTwo = new Book('Human Action', 'Ludwig von Mises', 881, false);
@@ -96,4 +174,6 @@ bookThree.addToLibrary();
 bookFour.addToLibrary();
 
 drawLibrary();
+clearPopup();
 createNewBook();
+cancelEdit();

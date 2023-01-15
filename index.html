@@ -8,23 +8,35 @@
     <title>Library</title>
   </head>
   <body>
+    <div class="grayout">
+      <div class="book popup">
+        <h3>Edit Book</h3>
+        <input type="text" id="edit-title">
+        <input type="text" id="edit-author">
+        <input type="tel" id="edit-pages">
+        <div>
+          <label for="finished">Finished?</label>
+          <input type="checkbox" id="edit-finished" />
+        </div>
+        <button type="submit" id="edit-submit">SUBMIT</button>
+        <button type="button" id="edit-cancel">CANCEL</button>
+      </div>
+    </div>
     <div class="container">
       <div class="add-book">
         <h1>Library</h1>
         <h2>Add Book:</h2>
-        <input type="text" id="title" placeholder="Book Title">
-        <input type="text" id="author" placeholder="Author Name">
-        <input type="tel" id="pages" placeholder="100">
+        <input type="text" id="title" placeholder="Book Title" />
+        <input type="text" id="author" placeholder="Author Name" />
+        <input type="tel" id="pages" placeholder="100" />
         <div>
           <label for="finished">Finished?</label>
-          <input type="checkbox" id="finished">
+          <input type="checkbox" id="finished" />
         </div>
         <button type="submit" id="submit">SUBMIT</button>
       </div>
-      <div class="library">
-      </div>
-      <div class="footer">
-      </div>
+      <div class="library"></div>
+      <div class="footer"></div>
     </div>
     <script src="./script.js"></script>
   </body>
