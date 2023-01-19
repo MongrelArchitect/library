@@ -1,16 +1,17 @@
 const library = [];
 
-function Book(title, author, pages, finished) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.finished = finished;
-}
+class Book {
+  constructor(title, author, pages, finished) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.finished = finished;
+  }
 
-// Can't use arrow function because of "this"
-Book.prototype.addToLibrary = function () {
-  library.splice(0, 0, this);
-};
+  addToLibrary() {
+    library.splice(0, 0, this);
+  }
+}
 
 function handleDelete(e) {
   library.splice(e.target.dataset.index, 1);
