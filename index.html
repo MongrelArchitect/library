@@ -9,17 +9,21 @@
   </head>
   <body>
     <div class="grayout">
-      <div class="book popup">
+      <form class="book popup">
         <h3>Edit Book</h3>
-        <input type="text" id="edit-title" />
-        <input type="text" id="edit-author" />
-        <input type="tel" id="edit-pages" />
-        <div id="edit-finished-container">
-          <button id="edit-finished"></button>
-        </div>
+        <input type="text" id="edit-title" required />
+        <input type="text" id="edit-author" required />
+        <input
+          type="tel"
+          id="edit-pages"
+          pattern="\d+"
+          title="Please enter numbers only"
+          required
+        />
+        <div id="edit-finished-container"></div>
         <button type="submit" id="edit-submit">SUBMIT</button>
         <button type="button" id="edit-cancel">CANCEL</button>
-      </div>
+      </form>
     </div>
     <div class="container">
       <div class="add-book">
@@ -27,11 +31,18 @@
         <form class="add-form">
           <h2>Add Book:</h2>
           <div class="add-info">
-            <input type="text" id="title" placeholder="Book Title" />
-            <input type="text" id="author" placeholder="Author Name" />
+            <input type="text" id="title" placeholder="Book Title" required />
+            <input type="text" id="author" placeholder="Author Name" required />
           </div>
           <div class="add-details">
-            <input type="tel" id="pages" placeholder="100" />
+            <input
+              type="tel"
+              id="pages"
+              placeholder="100"
+              title="Please enter numbers only"
+              pattern="\d+"
+              required
+            />
             <div>
               <label for="finished">Finished?</label>
               <input type="checkbox" id="finished" />

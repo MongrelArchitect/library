@@ -39,6 +39,7 @@ function drawEditFinished(currentBook) {
   editContainer.innerHTML = '';
   const editFinished = document.createElement('button');
   editFinished.setAttribute('id', 'edit-finished');
+  editFinished.setAttribute('type', 'button');
   const popup = document.querySelector('.popup');
 
   if (currentBook.finished) {
@@ -94,14 +95,22 @@ function handleEdit(e) {
   const submit = document.querySelector('#edit-submit');
   // Keep track of index for submiting edits
   submit.dataset.index = e.target.dataset.index;
-  submit.addEventListener('click', submitEdit);
+  submit.addEventListener('click', (submitEvent) => {
+    const form = document.querySelector('.popup');
+    if (form.checkValidity()) {
+      console.log(form.checkValidity());
+      submitEvent.preventDefault();
+      submitEdit(submitEvent);
+      // XXX Relying on hoisting here...
+      drawLibrary();
+    }
+  });
 
   // Cancel editing
   const cancel = document.querySelector('#edit-cancel');
   cancel.addEventListener('click', handleCancel);
 
   // XXX Relying on hoisting here...
-  submit.addEventListener('click', drawLibrary);
   cancel.addEventListener('click', drawLibrary);
 }
 
@@ -166,29 +175,35 @@ function drawLibrary() {
 }
 
 function createNewBook() {
+  const form = document.querySelector('.add-form');
   const newTitle = document.querySelector('#title');
   const newAuthor = document.querySelector('#author');
   const newPages = document.querySelector('#pages');
   const newFinished = document.querySelector('#finished');
   const submit = document.querySelector('#submit');
   submit.addEventListener('click', (event) => {
-    event.preventDefault();
-    const newBook = new Book(
-      newTitle.value,
-      newAuthor.value,
-      newPages.value,
-      newFinished.checked,
-    );
-    newBook.addToLibrary();
-    drawLibrary();
+    if (form.checkValidity()) {
+      event.preventDefault();
+      const newBook = new Book(
+        newTitle.value,
+        newAuthor.value,
+        newPages.value,
+        newFinished.checked,
+      );
+      newBook.addToLibrary();
+      drawLibrary();
+    }
   });
 }
 
 function clearPopup() {
   const grayout = document.querySelector('.grayout');
   const submit = document.querySelector('#edit-submit');
+  const form = document.querySelector('.popup');
   submit.addEventListener('click', () => {
-    grayout.setAttribute('style', 'display:none;');
+    if (form.checkValidity()) {
+      grayout.setAttribute('style', 'display:none;');
+    }
   });
 }
 
